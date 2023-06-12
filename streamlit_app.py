@@ -1,4 +1,8 @@
 import streamlit
+import pandas as pd
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
 streamlit.title('My Parents New Healthy Diner')
 
@@ -10,7 +14,7 @@ streamlit.text('🥑🍞 Avacado Toast')
 
 
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
-import pandas as pd
+# import pandas as pd
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
 # Add pick list for users to pick the items
@@ -22,7 +26,7 @@ streamlit.dataframe(fruits_to_show)
 streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice = streamlit.text_input('What fruit would you like information about?', 'Kiwi')
 streamlit.write('The user entered', fruit_choice)
-import requests
+# import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 streamlit.text(fruityvice_response.json())
 
@@ -31,12 +35,14 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # display the normalized json data in steamlit
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
+# don't run anything past this line as it is broken!
+streamlit.stop()
+# import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 # my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
 # my_data_row = my_cur.fetchone()
-my_cur.execute("SELECT * from fruit_load_list")
+my_cur.execute("select * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 # streamlit.text("Hello from Snowflake:")
