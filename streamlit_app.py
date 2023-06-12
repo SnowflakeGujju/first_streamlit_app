@@ -39,7 +39,7 @@ except URLError as e:
     streamlit.error()
 # import requests
 
-streamlit.text(fruityvice_response.json())
+# streamlit.text(fruityvice_response.json())
 
 
 
