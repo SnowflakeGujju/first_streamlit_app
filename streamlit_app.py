@@ -30,3 +30,5 @@ streamlit.text(fruityvice_response.json())
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # display the normalized json data in steamlit
 streamlit.dataframe(fruityvice_normalized)
+
+import snowflake.connector
