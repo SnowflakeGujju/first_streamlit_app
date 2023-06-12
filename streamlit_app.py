@@ -24,7 +24,6 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
 
-
 # create a new function
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
@@ -61,7 +60,7 @@ if streamlit.button('Get Fruit Load List'):
 # Allow user to add a fruit to list
 def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
-         my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+         my_cur.execute("insert into fruit_load_list values ('" + new_fruit +"')")
          return "Thanks for adding " + new_fruit
 add_my_fruit = streamlit.text_input("What fruit would you like to add?")
 if streamlit.button('Add a Fruit to the list'):
